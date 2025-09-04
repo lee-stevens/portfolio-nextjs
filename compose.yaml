@@ -1,0 +1,9 @@
+services:
+  client:
+    container_name: client
+    restart: unless-stopped
+    build:
+      context: ./portfolio
+      dockerfile: Dockerfile
+    ports:
+      - "7600:3000"
