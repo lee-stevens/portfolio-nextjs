@@ -18,10 +18,10 @@ $Context   = Join-Path $ScriptDir "../portfolio"
 $Commit = git rev-parse --short HEAD
 
 # Build image with two tags: latest and commit-specific
+# -t "${Registry}/${User}/${Repo}:${Commit}" ` - We don't need each build being tagged, latest is fine
 Write-Host "Building Docker image..."
 docker build `
   -t "${Registry}/${User}/${Repo}:latest" `
-  -t "${Registry}/${User}/${Repo}:${Commit}" `
   $Context
 
 # Push both tags to GHCR
