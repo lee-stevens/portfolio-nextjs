@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: ["arkane-pc", "arkane-lab"],
 };
 
 export default nextConfig;
