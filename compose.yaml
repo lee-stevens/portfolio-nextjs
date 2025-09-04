@@ -1,9 +1,22 @@
+# Use this to docker compose locally
+# services:
+#   client:
+#     container_name: client
+#     restart: unless-stopped
+#     build:
+#       context: ./portfolio
+#       dockerfile: Dockerfile
+#     ports:
+#       - "7600:3000"
+
+# Use this to docker compose from the ghcr image
+# You can push a new image with:
+# docker build -t ghcr.io/lee-stevens/portfolio-nextjs:latest ./portfolio
+# docker push ghcr.io/lee-stevens/portfolio-nextjs:latest
 services:
   client:
+    image: ghcr.io/lee-stevens/portfolio-nextjs:latest
     container_name: client
     restart: unless-stopped
-    build:
-      context: ./portfolio
-      dockerfile: Dockerfile
     ports:
       - "7600:3000"
