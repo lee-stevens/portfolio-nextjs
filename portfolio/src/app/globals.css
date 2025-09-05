@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+/* Base design tokens (light as default) */
 :root {
   --background: #ffffff;
+  --background-alt: #f5f5f5;
   --foreground: #171717;
+  --foreground-muted: #555555;
+  --border-color: rgba(0,0,0,0.12);
+  --border-color-strong: rgba(0,0,0,0.18);
+  --accent: #2563eb; /* blue-600 */
+  --accent-hover: #1d4ed8;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark theme overrides applied when .dark class is on <html> */
+.dark {
+  --background: #0a0a0a;
+  --background-alt: #141414;
+  --foreground: #ededed;
+  --foreground-muted: #9ca3af;
+  --border-color: rgba(255,255,255,0.16);
+  --border-color-strong: rgba(255,255,255,0.28);
+  --accent: #3b82f6; /* blue-500 a bit brighter in dark */
+  --accent-hover: #60a5fa;
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Map CSS variable tokens to utility classes if/where needed */
+@layer utilities {
+  .bg-background { background-color: var(--background); }
+  .bg-background-alt { background-color: var(--background-alt); }
+  .text-foreground { color: var(--foreground); }
+  .text-muted { color: var(--foreground-muted); }
+  .text-accent { color: var(--accent); }
+  .hover\:text-accent-hover:hover { color: var(--accent-hover); }
+  .border-token { border-color: var(--border-color); }
+  .border-token-strong { border-color: var(--border-color-strong); }
+  .rounded-sm-token { border-radius: var(--radius-sm); }
+  .rounded-md-token { border-radius: var(--radius-md); }
+  .rounded-lg-token { border-radius: var(--radius-lg); }
+}
+
+/* Smooth color transition for theme changes (avoid during initial load via inline script) */
+html.theme-transition, html.theme-transition * {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+/* Utility helpers */
+.border-base { border-color: var(--border-color); }
+.border-strong { border-color: var(--border-color-strong); }
+.text-muted { color: var(--foreground-muted); }
+.bg-alt { background: var(--background-alt); }
+
