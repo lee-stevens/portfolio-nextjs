@@ -27,8 +27,8 @@ docker build `
 # Push both tags to GHCR
 Write-Host "Pushing Docker images to $Registry..."
 docker push "${Registry}/${User}/${Repo}:latest"
-docker push "${Registry}/${User}/${Repo}:${Commit}"
+# docker push "${Registry}/${User}/${Repo}:${Commit}"
 
 Write-Host "Done! Images pushed:"
 Write-Host "   ${Registry}/${User}/${Repo}:latest"
-Write-Host "   ${Registry}/${User}/${Repo}:${Commit}"
+# Write-Host "   ${Registry}/${User}/${Repo}:${Commit}"

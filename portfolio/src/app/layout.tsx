@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   description: "Welcome to my portfolio website showcasing my work and projects.",
 };
 
+const useDarkMode = () => {
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
+  return theme === 'dark';
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,13 +40,11 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `(() => {
-  try {
-    const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
-    if (theme === 'dark') document.documentElement.classList.add('dark');
-  } catch (e) { /* fail silently */ }
-})();`,
+              try {
+                const theme = ${useDarkMode()};
+                if (theme === 'dark') document.documentElement.classList.add('dark');
+              } catch (e) { /* fail silently */ }
+            })();`,
           }}
         />
         <Toolbar />
